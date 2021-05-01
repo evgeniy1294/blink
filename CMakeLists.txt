@@ -137,10 +137,10 @@ if(STM32MP157_DK2_EN)
 
   # Libraries {{{
  
-    if(DEFINED ENV{CMSIS_STM32MP1_PATH})
-      target_include_directories ("${CMAKE_PROJECT_NAME}_dk2.elf"
-                                  PRIVATE "$ENV{CMSIS_STM32MP1_PATH}")
-    endif()
+    #if(DEFINED ENV{CMSIS_STM32MP1_PATH})
+    #  target_include_directories ("${CMAKE_PROJECT_NAME}_dk2.elf"
+    #                              PRIVATE "$ENV{CMSIS_STM32MP1_PATH}")
+    #endif()
   
   # }}} 
 
