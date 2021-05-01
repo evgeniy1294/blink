@@ -26,7 +26,7 @@ option(STM32MP157_DK2_EN "Build project for stm32mp157_dk2" ON)
   # Libraries {{{  
     if(DEFINED ENV{CMSIS_CORE_PATH})
       target_include_directories ("common_interface_lib"
-                                   INTERFACE "$ENV{CMSIS_CORE_PATH}"
+                                   INTERFACE "${CMAKE_CURRENT_LIST_DIR}/lib/cmsis_5/CMSIS/Core/Include/"
                                              "${CMAKE_CURRENT_LIST_DIR}/lib/")
     endif()  
     
@@ -78,7 +78,7 @@ if(BLUE_PILL_EN)
  
     if(DEFINED ENV{CMSIS_STM32F1_PATH})
       target_include_directories ("${CMAKE_PROJECT_NAME}_bp.elf"
-                                  PRIVATE "$ENV{CMSIS_STM32F1_PATH}")
+                                  PRIVATE "${CMAKE_CURRENT_LIST_DIR}/run/media/evgen/Common/Workspace/blink/lib/cmsis_device_f1/Include/")
     endif()
   
   # }}} 

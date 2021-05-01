@@ -4,3 +4,12 @@
 [submodule "lib/mpptim"]
 	path = lib/mpptim
 	url = git@github.com:evgeniy1294/mpptim.git
+[submodule "lib/cmsis_device_f4"]
+	path = lib/cmsis_device_f4
+	url = git@github.com:STMicroelectronics/cmsis_device_f4.git
+[submodule "lib/cmsis_device_f1"]
+	path = lib/cmsis_device_f1
+	url = git@github.com:STMicroelectronics/cmsis_device_f1.git
+[submodule "lib/cmsis_5"]
+	path = lib/cmsis_5
+	url = git@github.com:ARM-software/CMSIS_5.git
