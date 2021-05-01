@@ -1,0 +1,6 @@
+[submodule "lib/mppio"]
+	path = lib/mppio
+	url = git@github.com:evgeniy1294/mppio.git
+[submodule "lib/mpptim"]
+	path = lib/mpptim
+	url = git@github.com:evgeniy1294/mpptim.git
