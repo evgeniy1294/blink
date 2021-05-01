@@ -78,7 +78,7 @@ if(BLUE_PILL_EN)
  
     if(DEFINED ENV{CMSIS_STM32F1_PATH})
       target_include_directories ("${CMAKE_PROJECT_NAME}_bp.elf"
-                                  PRIVATE "${CMAKE_CURRENT_LIST_DIR}/run/media/evgen/Common/Workspace/blink/lib/cmsis_device_f1/Include/")
+                                  PRIVATE "${CMAKE_CURRENT_LIST_DIR}/lib/cmsis_device_f1/Include/")
     endif()
   
   # }}} 
