@@ -12,5 +12,5 @@
     *  xmake build
 * Cmake:
     *  cmake ./ -B ./build
-    *  cmake --build ./out --target all
+    *  cmake --build ./build --target all
              
