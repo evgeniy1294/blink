@@ -34,7 +34,6 @@ toolchain_end()
         
         
         
-add_rules("mode.debug", "mode.minsizerel")
 
 target("blink_bp")
     set_kind("binary")
@@ -49,8 +48,8 @@ target("blink_bp")
     -- Set c code standard: c99, c++ code standard: c++11
     set_languages("c11", "cxx17")
 
-    -- Optimization disabled
-    set_optimize("none")
+    -- Optimization rules
+    add_rules("mode.debug", "mode.minsizerel")
     
     -- Add C++ flags
     add_cxxflags("-mcpu=cortex-m3", "-mfloat-abi=soft", "-ggdb3")
@@ -101,8 +100,8 @@ target("blink_dk2")
     -- Set c code standard: c99, c++ code standard: c++11
     set_languages("c11", "cxx17")
 
-    -- Optimization disabled
-    set_optimize("none")
+    -- Optimization rules
+    add_rules("mode.debug", "mode.minsizerel")
     
     -- Add C++ flags
     add_cxxflags("-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16", "-ggdb3" )
