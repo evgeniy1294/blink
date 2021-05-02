@@ -2,7 +2,8 @@
 -- define toolchain
 toolchain("arm-none-eabi-gcc")
     set_kind("standalone")
-    set_sdkdir("/usr/bin")
+    set_bindir("/usr/bin")
+    set_sdkdir("/usr/arm-none-eabi/")
     
     set_toolset("cc",    "arm-none-eabi-gcc")
     set_toolset("cxx",   "arm-none-eabi-g++")
