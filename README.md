@@ -8,7 +8,6 @@
 * git submodule init
 * git submodule update
 * Данный шаг зависит от предпочитаемой системы сборки. Для xmake:
-    *  xmake f --toolchain=arm-none-eabi-gcc --arch=arm --plat=cross
     *  xmake build
 * Cmake:
     *  cmake ./ -B ./build
