@@ -21,6 +21,9 @@ toolchain("arm-none-eabi-gcc")
     
     -- on load
     on_load(function (toolchain)
+        -- set arch
+        local march = "arm"
+            
         -- init flags for c++ 
         toolchain:add("cxxflags", "-mthumb", "-fno-rtti", "-fno-exceptions", "-specs=nosys.specs", "-specs=nano.specs")
         toolchain:add("ldflags", "-Wl,--cref", "-specs=nosys.specs", "-specs=nano.specs")
@@ -36,6 +39,8 @@ add_rules("mode.debug", "mode.minsizerel")
 target("blink_bp")
     set_kind("binary")
     set_toolchains("arm-none-eabi-gcc")
+    set_plat("cross")
+    set_arch("arm")
     set_policy("check.auto_ignore_flags", false)
     
     -- Enable this target
@@ -51,7 +56,7 @@ target("blink_bp")
     add_cxxflags("-mcpu=cortex-m3", "-mfloat-abi=soft", "-ggdb3")
     
     -- Add ld flags
-    add_ldflags("-T$(projectdir)/bsp/blue_pill/memory.ld", "-Wl,-Map=$(buildir)/$(plat)/$(arch)/$(mode)/blink_bp.map", "-mcpu=cortex-m3")
+    add_ldflags("-T$(projectdir)/bsp/blue_pill/memory.ld", "-Wl,-Map=$(buildir)/cross/arm/$(mode)/blink_bp.map", "-mcpu=cortex-m3")
     
     -- Add files 
     add_files( "$(projectdir)/src/*.cpp", 
@@ -66,7 +71,7 @@ target("blink_bp")
                      "$(projectdir)/lib/cmsis_device_f1/Include/" )
     -- Postbuild
     after_build(function (target)
-        path = "$(buildir)/$(plat)/$(arch)/$(mode)/"
+        path = "$(buildir)/"..target:plat().."/"..target:arch().."/$(mode)/"
                
         -- Generate hex-file
         os.run("objcopy -Oihex "..path..target:name().." "..path..target:name()..".hex")
@@ -86,6 +91,8 @@ target_end() --blink_bp
 target("blink_dk2")
     set_kind("binary")
     set_toolchains("arm-none-eabi-gcc")
+    set_plat("cross")
+    set_arch("arm")
     set_policy("check.auto_ignore_flags", false)
     
     -- Enable this target
@@ -101,7 +108,7 @@ target("blink_dk2")
     add_cxxflags("-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16", "-ggdb3" )
     
     -- Add ld flags
-    add_ldflags("-T$(projectdir)/bsp/stm32mp157_dk2/memory.ld", "-Wl,-Map=$(buildir)/$(plat)/$(arch)/$(mode)/blink_dk2.map", "-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16")
+    add_ldflags("-T$(projectdir)/bsp/stm32mp157_dk2/memory.ld", "-Wl,-Map=$(buildir)/cross/arm/$(mode)/blink_dk2.map", "-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16")
     
     -- Add files 
     add_files( "$(projectdir)/src/*.cpp", 
@@ -116,7 +123,7 @@ target("blink_dk2")
                      "$(projectdir)/lib/cmsis_device_f1/Include/" )
     -- Postbuild
     after_build(function (target)
-        path = "$(buildir)/$(plat)/$(arch)/$(mode)/"
+        path = "$(buildir)/"..target:plat().."/"..target:arch().."/$(mode)/"
                
         -- Generate hex-file
         os.run("objcopy -Oihex "..path..target:name().." "..path..target:name()..".hex")
