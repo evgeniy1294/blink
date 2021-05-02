@@ -13,6 +13,11 @@ toolchain("arm-none-eabi-gcc")
     set_toolset("strip", "arm-none-eabi-strip")
     set_toolset("as",    "arm-none-eabi-as")
 
+    -- check toolchain
+    on_check(function (toolchain)
+      return import("lib.detect.find_tool")("arm-none-eabi-gcc")
+    end)
+    
     -- on load
     on_load(function (toolchain)
         -- init flags for c++ 
