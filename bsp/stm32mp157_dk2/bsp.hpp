@@ -29,7 +29,7 @@ namespace bsp
 {
   struct ClockTree {
     constexpr static std::uint32_t kSysClkHz     = 160'000'000u;
-    constexpr static std::uint32_t kSysTickClkHz = 160'000'000u; 
+    constexpr static std::uint32_t kSysTickClkHz = 160'000'000u;
   };
 
   using Systick = mpp::tim::Systick < ClockTree >;

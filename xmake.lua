@@ -118,8 +118,7 @@ target("blink_dk2")
     add_includedirs( "$(projectdir)/src", 
                      "$(projectdir)/bsp/stm32mp157_dk2/",
                      "$(projectdir)/lib/",
-                     "$(projectdir)/lib/cmsis_5/CMSIS/Core/Include/",
-                     "$(projectdir)/lib/cmsis_device_f1/Include/" )
+                     "$(projectdir)/lib/cmsis_5/CMSIS/Core/Include/")
     -- Postbuild
     after_build(function (target)
         path = "$(buildir)/"..target:plat().."/"..target:arch().."/$(mode)/"
@@ -135,6 +134,100 @@ target_end() --blink_dk2
 
 
 
+
+target("blink_f4_disco")
+    set_kind("binary")
+    set_toolchains("arm-none-eabi-gcc")
+    set_plat("cross")
+    set_arch("arm")
+    set_policy("check.auto_ignore_flags", false)
+    
+    -- Enable this target
+    set_enabled(true)
+    
+    -- Set c code standard: c99, c++ code standard: c++11
+    set_languages("c11", "cxx17")
+
+    -- Optimization rules
+    add_rules("mode.debug", "mode.minsizerel")
+    
+    -- Add C++ flags
+    add_cxxflags("-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16", "-ggdb3" )
+    
+    -- Add ld flags
+    add_ldflags("-T$(projectdir)/bsp/stm32f407g_disco/memory.ld", "-Wl,-Map=$(buildir)/cross/arm/$(mode)/blink_f4_disco.map", "-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16")
+    
+    -- Add files 
+    add_files( "$(projectdir)/src/*.cpp", 
+               "$(projectdir)/bsp/stm32f407g_disco/*.cpp",
+               "$(projectdir)/lib/mpptim/cortex.cpp" )
+    
+    -- Add include directory
+    add_includedirs( "$(projectdir)/src", 
+                     "$(projectdir)/bsp/stm32f407g_disco/",
+                     "$(projectdir)/lib/",
+                     "$(projectdir)/lib/cmsis_5/CMSIS/Core/Include/",
+                     "$(projectdir)/lib/cmsis_device_f4/Include/" )
+    -- Postbuild
+    after_build(function (target)
+        path = "$(buildir)/"..target:plat().."/"..target:arch().."/$(mode)/"
+               
+        -- Generate hex-file
+        os.run("objcopy -Oihex "..path..target:name().." "..path..target:name()..".hex")
+               
+        -- Size
+        os.exec("size "..path..target:name())
+        os.exec("echo")
+    end)
+target_end() --blink_f4_disco
+
+
+
+
+target("blink_longan")
+    set_kind("binary")
+    set_toolchains("riscv32imac-kgp-elf")
+    set_plat("cross")
+    set_arch("riscv")
+    set_policy("check.auto_ignore_flags", false)
+    
+    -- Enable this target
+    set_enabled(false)
+    
+    -- Set c code standard: c99, c++ code standard: c++11
+    set_languages("c11", "cxx17")
+
+    -- Optimization rules
+    add_rules("mode.debug", "mode.minsizerel")
+    
+    -- Add C++ flags
+    add_cxxflags("-march=rv32imac" , "-ggdb3" )
+    
+    -- Add ld flags
+    add_ldflags("-T$(projectdir)/bsp/longan_nano/memory.ld", "-Wl,-Map=$(buildir)/cross/arm/$(mode)/blink_f4_disco.map", "-march=rv32imac",  "-fno-lto")
+    
+    -- Add files 
+    add_files( "$(projectdir)/src/*.cpp", 
+               "$(projectdir)/bsp/longan_nano/*.cpp",
+               "$(projectdir)/lib/mpptim/cortex.cpp" )
+    
+    -- Add include directory
+    add_includedirs( "$(projectdir)/src", 
+                     "$(projectdir)/bsp/longan_nano/",
+                     "$(projectdir)/lib/"
+                   )
+    -- Postbuild
+    after_build(function (target)
+        path = "$(buildir)/"..target:plat().."/"..target:arch().."/$(mode)/"
+               
+        -- Generate hex-file
+        os.run("objcopy -Oihex "..path..target:name().." "..path..target:name()..".hex")
+               
+        -- Size
+        os.exec("size "..path..target:name())
+        os.exec("echo")
+    end)
+target_end() --blink_longan
 
 
 
